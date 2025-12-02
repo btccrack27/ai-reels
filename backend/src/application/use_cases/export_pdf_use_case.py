@@ -5,7 +5,7 @@ from ...domain.interfaces.subscription_repository import ISubscriptionRepository
 from ...domain.interfaces.usage_repository import IUsageRepository
 from ...domain.entities.content import ContentType
 from ...domain.entities.hook import HookContent
-from ...domain.entities.script import ScriptContent, Scene
+from ...domain.entities.script import ScriptContent, SceneContent
 from ...domain.entities.shotlist import ShotlistContent
 from ...domain.entities.voiceover import VoiceoverContent
 from ...domain.entities.caption import CaptionContent

@@ -53,7 +53,7 @@ class GenerateBRollRequestDTO(GenerateContentRequestDTO):
 @dataclass
 class GenerateCalendarRequestDTO(GenerateContentRequestDTO):
     """Request für 30-Tage Kalender-Generierung"""
-    niche: str  # Die Nische/Thema für den Content-Plan
+    niche: Optional[str] = None  # Die Nische/Thema für den Content-Plan (wird aus prompt verwendet wenn nicht angegeben)
 
 
 # ================== Response DTOs ==================

@@ -61,7 +61,7 @@ class PostgresContentRepository(IContentRepository):
             data=content.data,
             prompt=content.prompt,
             version=content.version,
-            metadata=content.metadata,
+            content_metadata=content.metadata,
             created_at=content.created_at,
             updated_at=content.updated_at
         )
@@ -124,7 +124,7 @@ class PostgresContentRepository(IContentRepository):
             data=model.data,
             prompt=model.prompt,
             version=model.version,
-            metadata=model.metadata,
+            metadata=model.content_metadata,
             created_at=model.created_at,
             updated_at=model.updated_at
         )

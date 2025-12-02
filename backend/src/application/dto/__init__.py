@@ -1,4 +1,4 @@
 """
-Data Transfer Objects (DTOs) für Application Layer.
-DTOs definieren die Schnittstelle zwischen Presentation und Application Layer.
+Data Transfer Objects (DTOs) for Application Layer.
+DTOs define the interface between Presentation and Application Layer.
 """

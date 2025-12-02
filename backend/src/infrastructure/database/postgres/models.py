@@ -62,7 +62,7 @@ class ContentModel(Base):
     data = Column(JSONB, nullable=False)
     prompt = Column(Text, nullable=False)
     version = Column(Integer, default=1)
-    metadata = Column(JSONB, nullable=True)
+    content_metadata = Column(JSONB, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), index=True)
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
