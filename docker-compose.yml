@@ -39,10 +39,14 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_URL: postgresql+asyncpg://postgres:postgres@postgres:5432/reels_db
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://postgres:postgres@postgres:5432/reels_db}
       REDIS_URL: redis://redis:6379/0
-      OPENAI_API_KEY: ${OPENAI_API_KEY:-mock-api-key}
-      STORAGE_PATH: /app/storage
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-mock-api-key}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-dev-secret-key-change-in-production}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+      BLOB_READ_WRITE_TOKEN: ${BLOB_READ_WRITE_TOKEN}
     depends_on:
       postgres:
         condition: service_healthy
@@ -50,9 +54,6 @@ services:
         condition: service_healthy
     volumes:
       - ./backend:/app
-      - media_storage:/app/storage/media
-      - uploads_storage:/app/storage/uploads
-      - cache_storage:/app/storage/cache
     command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
 
   frontend:
