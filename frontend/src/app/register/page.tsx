@@ -28,7 +28,7 @@ export default function RegisterPage() {
 
     try {
       await register(email, name, password);
-      router.push('/generate');
+      router.push('/dashboard');
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Registrierung fehlgeschlagen');
     } finally {
