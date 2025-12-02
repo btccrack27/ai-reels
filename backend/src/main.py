@@ -45,6 +45,7 @@ frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
 allowed_origins = [
     frontend_url,
     "http://localhost:3000",
+    "http://localhost:3001",  # Alternative localhost port
     "https://frontend-christians-projects-3af5506a.vercel.app",
     "https://*.vercel.app"  # All Vercel preview deployments
 ]

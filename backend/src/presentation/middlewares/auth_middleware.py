@@ -1,4 +1,4 @@
-from fastapi import Request, HTTPException, status
+from fastapi import Request, HTTPException, status, Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
 import os
@@ -67,7 +67,7 @@ class AuthMiddleware:
 auth_middleware = AuthMiddleware()
 
 
-def get_current_user(credentials: HTTPAuthorizationCredentials = security) -> dict:
+def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)) -> dict:
     """
     FastAPI Dependency für geschützte Routes.
     Extrahiert und verifiziert JWT Token aus Authorization Header.
@@ -95,7 +95,7 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = security) -> di
 
 
 def get_current_user_optional(
-    credentials: Optional[HTTPAuthorizationCredentials] = security
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security)
 ) -> Optional[dict]:
     """
     FastAPI Dependency für optional geschützte Routes.
