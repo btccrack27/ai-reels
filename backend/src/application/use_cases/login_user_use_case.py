@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from passlib.context import CryptContext
 import jwt
 import os
@@ -71,7 +71,7 @@ class LoginUserUseCase:
 
     def _generate_tokens(self, user: User) -> AuthTokensDTO:
         """Generiert Access & Refresh Tokens"""
-        now = datetime.now()
+        now = datetime.now(timezone.utc)
 
         # Access Token (1 Stunde)
         access_token_payload = {

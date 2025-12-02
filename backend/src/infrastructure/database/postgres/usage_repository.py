@@ -1,5 +1,6 @@
 from typing import Optional
 from datetime import datetime
+import uuid
 from sqlalchemy import select, and_
 from sqlalchemy.ext.asyncio import AsyncSession
 from ....domain.interfaces.usage_repository import IUsageRepository
@@ -20,7 +21,7 @@ class PostgresUsageRepository(IUsageRepository):
         content_type: ContentType,
         period_start: datetime,
         period_end: datetime
-    ) -> Optional[Usage]:
+    ) -> Usage:
         stmt = select(UsageTrackingModel).where(
             and_(
                 UsageTrackingModel.user_id == user_id,
@@ -31,7 +32,21 @@ class PostgresUsageRepository(IUsageRepository):
         )
         result = await self.session.execute(stmt)
         model = result.scalar_one_or_none()
-        return self._to_entity(model) if model else None
+
+        if model:
+            return self._to_entity(model)
+        else:
+            # Return default Usage with count=0 if none exists
+            return Usage(
+                id=str(uuid.uuid4()),
+                user_id=user_id,
+                content_type=content_type.value,
+                count=0,
+                period_start=period_start,
+                period_end=period_end,
+                created_at=datetime.utcnow(),
+                updated_at=datetime.utcnow()
+            )
 
     async def create(self, usage: Usage) -> Usage:
         model = UsageTrackingModel(

@@ -14,6 +14,8 @@ class Usage:
     count: int
     period_start: datetime
     period_end: datetime
+    created_at: datetime = None
+    updated_at: datetime = None
 
     def has_exceeded_limit(self, limit: int) -> bool:
         """

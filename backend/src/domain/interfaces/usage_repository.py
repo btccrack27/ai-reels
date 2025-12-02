@@ -15,8 +15,8 @@ class IUsageRepository(ABC):
         content_type: ContentType,
         period_start: datetime,
         period_end: datetime
-    ) -> Optional[Usage]:
-        """Holt die aktuelle Usage für einen Content-Typ im gegebenen Zeitraum"""
+    ) -> Usage:
+        """Holt die aktuelle Usage für einen Content-Typ im gegebenen Zeitraum. Returns default Usage with count=0 if none exists."""
         pass
 
     @abstractmethod
