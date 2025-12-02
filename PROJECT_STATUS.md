@@ -12,7 +12,7 @@ Ein SaaS für Instagram Reels Content-Generierung mit AI:
 - 7 Content-Typen (Hooks, Scripts, Shotlists, Voiceover, Captions, B-Roll, Calendar)
 - Claude 3.5 Sonnet für Content-Generierung
 - Vercel Postgres Datenbank
-- Stripe Subscriptions (in Arbeit)
+- Stripe Subscriptions (komplett)
 - PDF Export für alle Content-Typen
 
 **Tech Stack:**
@@ -25,7 +25,7 @@ Ein SaaS für Instagram Reels Content-Generierung mit AI:
 
 ---
 
-## ✅ Was ist fertig (75%)
+## ✅ Was ist fertig (80%)
 
 ### Phase 1: Domain Layer (100%)
 
@@ -52,7 +52,7 @@ Ein SaaS für Instagram Reels Content-Generierung mit AI:
 - ✅ `rate_limiter.py` - Rate-Limiting pro Plan
 - ✅ `content_validator.py` - Content-Validierung
 
-### Phase 2: Infrastructure Layer (75%)
+### Phase 2: Infrastructure Layer (100%)
 
 **Claude API** (`backend/src/infrastructure/ai_services/`)
 - ✅ `claude_service.py` - 7 Generierungs-Methoden
@@ -79,8 +79,13 @@ Ein SaaS für Instagram Reels Content-Generierung mit AI:
   - Branded PDFs mit custom Styling
   - A4 Format, professionelles Layout
 
-**Noch fehlt:**
-- ⏳ Stripe Integration
+**Stripe Integration** (`backend/src/infrastructure/payment/`)
+- ✅ `stripe_service.py` - Payment & Subscription Management
+  - `create_checkout_session()` - Checkout für BASIC/PRO/ENTERPRISE
+  - `create_portal_session()` - Self-Service Portal
+  - `handle_webhook()` - 5 Event Types (created, updated, deleted, paid, failed)
+  - `get_subscription()` - Stripe Sync
+  - `cancel_subscription()` - Kündigung
 
 ---
 
@@ -411,14 +416,7 @@ with open("test.pdf", "wb") as f:
 
 ---
 
-## ⏳ Was noch fehlt (25%)
-
-### Phase 2 (restlich)
-- ⏳ Stripe Integration
-  - Checkout Sessions
-  - Webhooks (subscription.created, invoice.paid)
-  - Customer Portal
-  - Plan Upgrades/Downgrades
+## ⏳ Was noch fehlt (20%)
 
 ### Phase 3: Application Layer
 - ⏳ 7 Content-Generierungs Use Cases
@@ -448,29 +446,28 @@ with open("test.pdf", "wb") as f:
 ## 📈 Nächste Schritte
 
 ### Kurzfristig (nächste Session)
-1. **Stripe Integration** - Phase 2 abschließen
-2. **Application Layer** - Use Cases erstellen
-3. **API Controllers** - FastAPI Endpoints
+1. **Application Layer** - Use Cases erstellen
+2. **API Controllers** - FastAPI Endpoints
+3. **Authentication** - JWT-basiert
 
 ### Mittelfristig
-4. **Authentication** - JWT-basiert
-5. **Frontend Core** - Generate Page + erste Generatoren
-6. **Testing** - Unit & Integration Tests
+4. **Frontend Core** - Generate Page + erste Generatoren
+5. **Testing** - Unit & Integration Tests
 
 ### Langfristig
-7. **Frontend Polish** - Alle 7 Generatoren
-8. **Landing Page** - Marketing + Pricing
-9. **Deployment** - Production-ready
-10. **Monitoring** - Error Tracking & Analytics
+6. **Frontend Polish** - Alle 7 Generatoren
+7. **Landing Page** - Marketing + Pricing
+8. **Deployment** - Production-ready
+9. **Monitoring** - Error Tracking & Analytics
 
 ---
 
 ## 🎯 Geschätzter Fortschritt
 
-**Gesamt: ~30% Complete**
+**Gesamt: ~35% Complete**
 
 - ✅ Phase 1: Domain Layer (100%)
-- ✅ Phase 2: Infrastructure (75%)
+- ✅ Phase 2: Infrastructure (100%)
 - ⏳ Phase 3: Application (0%)
 - ⏳ Phase 4: API (0%)
 - ⏳ Phase 5: Frontend Core (5%)
@@ -479,12 +476,12 @@ with open("test.pdf", "wb") as f:
 - ⏳ Phase 8: Testing & Deploy (0%)
 
 **Realistische Timeline:**
-- Phase 2 abschließen: 1-2 Stunden
+- ✅ Phase 2 abgeschlossen
 - Phase 3-4: 3-4 Stunden
 - Phase 5-7: 8-10 Stunden
 - Phase 8: 2-3 Stunden
 
-**Total: ~20 Stunden** bis Production-ready
+**Total: ~15 Stunden** bis Production-ready
 
 ---
 
