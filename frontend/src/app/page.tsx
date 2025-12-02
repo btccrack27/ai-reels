@@ -11,8 +11,14 @@ import Footer from '@/components/landing/Footer';
 
 export default function HomePage() {
   const router = useRouter();
-  const { isAuthenticated, isLoading } = useAuthStore();
+  const { isAuthenticated, isLoading, loadUser } = useAuthStore();
 
+  // Initialize auth state on mount
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
+
+  // Redirect to dashboard if authenticated
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
       router.push('/dashboard');
