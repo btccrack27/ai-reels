@@ -1,6 +1,10 @@
 import os
+from dotenv import load_dotenv
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import declarative_base
+
+# Load environment variables
+load_dotenv()
 
 # Vercel Postgres Connection
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://postgres:postgres@localhost:5432/reels_db")

@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from typing import List
+from typing import List, Optional
 from ...application.dto.content_dto import (
     GenerateHookRequestDTO,
     GenerateScriptRequestDTO,
@@ -45,42 +45,42 @@ router = APIRouter(prefix="/api/content", tags=["content"])
 
 class HookRequest(BaseModel):
     prompt: str
-    context: str | None = None
+    context: Optional[str] = None
 
 
 class ScriptRequest(BaseModel):
     prompt: str
-    context: str | None = None
+    context: Optional[str] = None
     duration_seconds: int = 15
 
 
 class ShotlistRequest(BaseModel):
     prompt: str
-    context: str | None = None
-    script: str | None = None
+    context: Optional[str] = None
+    script: Optional[str] = None
 
 
 class VoiceoverRequest(BaseModel):
     prompt: str
-    context: str | None = None
-    script: str | None = None
+    context: Optional[str] = None
+    script: Optional[str] = None
 
 
 class CaptionRequest(BaseModel):
     prompt: str
-    context: str | None = None
+    context: Optional[str] = None
     include_emojis: bool = True
 
 
 class BRollRequest(BaseModel):
     prompt: str
-    context: str | None = None
+    context: Optional[str] = None
 
 
 class CalendarRequest(BaseModel):
     niche: str
     prompt: str
-    context: str | None = None
+    context: Optional[str] = None
 
 
 # ============== Endpoints ==============
