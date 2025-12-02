@@ -44,13 +44,8 @@ class LoginUserUseCase:
             raise ValueError("Email oder Password falsch")
 
         # 2. Password verifizieren
-        # HINWEIS: In production müsste password_hash aus DB geladen werden
-        # Für jetzt: Simplified - würde in UserModel gespeichert
-        # if not self.pwd_context.verify(request.password, user.password_hash):
-        #     raise ValueError("Email oder Password falsch")
-
-        # Simplified für Entwicklung - in Production mit realem Hash
-        # Hier würden wir das gehashte Password aus der DB vergleichen
+        if not self.pwd_context.verify(request.password, user.password_hash):
+            raise ValueError("Email oder Password falsch")
 
         # User aktiv?
         if not user.is_active:

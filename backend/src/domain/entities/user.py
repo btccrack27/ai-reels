@@ -22,6 +22,7 @@ class User:
     email: str
     name: str
     role: UserRole
+    password_hash: str = None
     subscription_id: Optional[str] = None
     stripe_customer_id: Optional[str] = None
     created_at: datetime = None
