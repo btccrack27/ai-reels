@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: ai-reels-backend
+    env: python
+    region: frankfurt
+    plan: starter
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn src.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DATABASE_URL
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: STRIPE_PRICE_BASIC
+        sync: false
+      - key: STRIPE_PRICE_PRO
+        sync: false
+      - key: STRIPE_PRICE_ENTERPRISE
+        sync: false
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: FRONTEND_URL
+        sync: false

@@ -149,27 +149,41 @@ class ApiClient {
     return data;
   }
 
-  async generateCalendar(niche: string, prompt: string, context?: string) {
+  async generateCalendar(niche: string, context?: string) {
     const { data } = await this.client.post('/api/content/calendar', {
       niche,
-      prompt,
       context,
     });
     return data;
   }
 
+  async getContentHistory() {
+    const { data } = await this.client.get('/api/content/history');
+    return data;
+  }
+
+  async getContentById(id: string) {
+    const { data } = await this.client.get(`/api/content/${id}`);
+    return data;
+  }
+
   // ============== Subscription Endpoints ==============
 
-  async createCheckoutSession(plan: string, success_url: string, cancel_url: string) {
+  async createCheckoutSession(priceId: string) {
+    const success_url = `${window.location.origin}/subscription?success=true`;
+    const cancel_url = `${window.location.origin}/subscription?canceled=true`;
+
     const { data } = await this.client.post('/api/subscription/checkout', {
-      plan,
+      price_id: priceId,
       success_url,
       cancel_url,
     });
     return data;
   }
 
-  async createPortalSession(return_url: string) {
+  async createPortalSession() {
+    const return_url = `${window.location.origin}/subscription`;
+
     const { data } = await this.client.post('/api/subscription/portal', {
       return_url,
     });
@@ -178,6 +192,11 @@ class ApiClient {
 
   async getSubscriptionStatus() {
     const { data } = await this.client.get('/api/subscription/status');
+    return data;
+  }
+
+  async getUsageStats() {
+    const { data } = await this.client.get('/api/subscription/usage');
     return data;
   }
 

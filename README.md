@@ -1,307 +1,232 @@
-# AI Reels Generator Engine
+# 🎬 AI Reels Generator
 
-Eine vollständige Full-Stack-Anwendung zur automatischen Generierung von Video-Reels mit KI, gebaut nach Clean Architecture Prinzipien.
+> Generate viral Instagram Reels, TikToks, and YouTube Shorts content with AI
 
-## Technologie-Stack
+A complete SaaS application for content creators to generate professional social media content using Claude 3.5 Sonnet AI.
 
-### Frontend
-- **Next.js 14** mit App Router
-- **TypeScript** für Type Safety
-- **Tailwind CSS** für Styling
-- **Zustand** für State Management
-- **Axios** für API-Kommunikation
+## 🚀 Features
+
+### 7 AI-Powered Generators
+
+1. **🎣 Hooks** - 10 viral attention-grabbing hooks (5-10 words each)
+2. **📝 Scripts** - Complete 2-4 scene scripts with CTA (10-20 seconds)
+3. **🎬 Shotlists** - Professional 3-4 shot descriptions with camera angles
+4. **🎙️ Voiceovers** - 10-20 second voiceover text
+5. **💬 Captions** - Engaging captions with 15 relevant hashtags
+6. **🎥 B-Roll Ideas** - 10 creative B-Roll suggestions
+7. **📅 Content Calendar** - 30-day content plan with daily themes and hooks
+
+### Additional Features
+
+- ✅ **PDF Export** - Download all generated content as professional PDFs
+- ✅ **Content History** - Access all your generated content with search and filters
+- ✅ **Usage Tracking** - Monitor your monthly usage across all tools
+- ✅ **Subscription Management** - Flexible pricing plans with Stripe integration
+- ✅ **Authentication** - Secure JWT-based authentication
+- ✅ **Responsive Design** - Works perfectly on desktop, tablet, and mobile
+
+## 🏗️ Tech Stack
 
 ### Backend
-- **Python 3.11** mit FastAPI
-- **SQLAlchemy** (async) für Datenbank
-- **PostgreSQL** als Datenbank
-- **Redis** für Caching & Job Queue
-- **OpenAI API** für KI-Features
-- **Celery** für asynchrone Tasks
+- **Framework**: FastAPI (Python 3.11+)
+- **AI**: Anthropic Claude 3.5 Sonnet
+- **Database**: PostgreSQL (Vercel Postgres / Neon)
+- **Payments**: Stripe
+- **PDF Generation**: ReportLab
+- **Architecture**: Clean Architecture (Domain, Application, Infrastructure, Presentation)
 
-## Clean Architecture Struktur
+### Frontend
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: Zustand
+- **HTTP Client**: Axios
+- **Notifications**: React Hot Toast
 
-Das Projekt folgt strikt den Clean Architecture Prinzipien, um eine klare Trennung von Verantwortlichkeiten und maximale Testbarkeit zu gewährleisten.
-
-### Schichten-Übersicht
-
-```
-┌─────────────────────────────────────────┐
-│        Presentation Layer               │  ← UI, API Controller
-├─────────────────────────────────────────┤
-│        Application Layer                │  ← Use Cases, Business Logic
-├─────────────────────────────────────────┤
-│        Domain Layer                     │  ← Entities, Interfaces
-├─────────────────────────────────────────┤
-│        Infrastructure Layer             │  ← DB, External Services, AI
-└─────────────────────────────────────────┘
-```
-
-### Frontend Architektur
+## 📦 Project Structure
 
 ```
-frontend/
-├── src/
-│   ├── domain/                    # Geschäftslogik-Kern
-│   │   ├── entities/             # Domain Models (Reel, Config, etc.)
-│   │   └── interfaces/           # Repository Interfaces
-│   │
-│   ├── application/              # Anwendungslogik
-│   │   ├── use-cases/           # Business Use Cases
-│   │   └── services/            # Application Services
-│   │
-│   ├── infrastructure/           # Externe Schnittstellen
-│   │   ├── api/                 # API Client Implementierungen
-│   │   └── storage/             # LocalStorage, SessionStorage
-│   │
-│   └── presentation/             # UI Layer
-│       ├── components/          # React Components
-│       ├── pages/              # Next.js Pages
-│       └── hooks/              # Custom React Hooks
+ai-reels-generator/
+├── backend/                 # FastAPI Backend
+│   ├── src/
+│   │   ├── domain/         # Entities, Interfaces, Services
+│   │   ├── application/    # Use Cases, DTOs
+│   │   ├── infrastructure/ # Databases, AI Services, PDF, Stripe
+│   │   └── presentation/   # Controllers, Middlewares
+│   ├── requirements.txt
+│   └── .env.example
+├── frontend/               # Next.js Frontend
+│   ├── src/
+│   │   ├── app/           # Pages (App Router)
+│   │   ├── components/    # React Components
+│   │   ├── lib/           # Utilities (API, Toast)
+│   │   └── store/         # Zustand Stores
+│   ├── package.json
+│   └── .env.example
+├── database/              # Database Schemas
+│   └── vercel-postgres/
+│       └── schema.sql
+├── SETUP.md              # Complete setup guide
+└── README.md             # This file
 ```
 
-### Backend Architektur
+## 🚀 Quick Start
 
-```
-backend/
-├── src/
-│   ├── domain/                    # Geschäftslogik-Kern
-│   │   ├── entities/             # Domain Models (Reel, Config)
-│   │   └── interfaces/           # Repository & Service Interfaces
-│   │
-│   ├── application/              # Anwendungslogik
-│   │   ├── use-cases/           # Business Use Cases
-│   │   └── dto/                 # Data Transfer Objects
-│   │
-│   ├── infrastructure/           # Externe Implementierungen
-│   │   ├── database/            # SQLAlchemy Models & Repository
-│   │   ├── ai-services/         # OpenAI, Video Generation
-│   │   └── external/            # AWS S3, etc.
-│   │
-│   └── presentation/             # API Layer
-│       ├── controllers/         # FastAPI Endpoints
-│       └── middlewares/         # CORS, Auth, etc.
-```
+### Prerequisites
 
-## Clean Architecture Prinzipien
+- Node.js 18+
+- Python 3.11+
+- PostgreSQL (Vercel Postgres recommended)
+- Anthropic Claude API key
+- Stripe account
 
-### 1. Dependency Rule
-Abhängigkeiten zeigen nur nach innen. Äußere Schichten kennen innere, aber nicht umgekehrt.
+### 1. Clone Repository
 
-- **Domain** kennt nichts anderes
-- **Application** kennt nur Domain
-- **Infrastructure** kennt Domain & Application
-- **Presentation** kennt alle anderen
-
-### 2. Interfaces für Abstraktion
-Alle externen Abhängigkeiten werden über Interfaces abstrahiert:
-
-```typescript
-// Domain definiert Interface
-interface IReelRepository {
-  getReels(): Promise<Reel[]>;
-  createReel(script: string): Promise<Reel>;
-}
-
-// Infrastructure implementiert
-class ReelApiRepository implements IReelRepository {
-  // Konkrete API-Implementierung
-}
-```
-
-### 3. Use Cases für Business Logic
-Geschäftslogik wird in Use Cases gekapselt:
-
-```typescript
-class CreateReelUseCase {
-  constructor(private repository: IReelRepository) {}
-
-  async execute(script: string, config: Config): Promise<Reel> {
-    // Validation
-    if (!script || script.length > 5000) {
-      throw new Error('Invalid script');
-    }
-
-    // Business logic
-    return await this.repository.createReel(script, config);
-  }
-}
-```
-
-### 4. Entities als Kern
-Domain Entities enthalten nur Geschäftslogik, keine Framework-Abhängigkeiten:
-
-```python
-@dataclass
-class Reel:
-    id: str
-    title: str
-    script: str
-    status: ReelStatus
-    # Kein SQLAlchemy, kein Pydantic - reine Business Objects
-```
-
-## Installation & Setup
-
-### Voraussetzungen
-- Docker & Docker Compose
-- Node.js 20+ (für lokale Entwicklung)
-- Python 3.11+ (für lokale Entwicklung)
-
-### Schnellstart mit Docker
-
-1. Repository klonen:
 ```bash
-git clone <repository-url>
+git clone https://github.com/yourusername/ai-reels-generator.git
 cd ai-reels-generator
 ```
 
-2. Umgebungsvariablen konfigurieren:
-```bash
-cp .env.example .env
-# .env bearbeiten und API-Keys eintragen
-```
-
-3. Projekt starten:
-```bash
-docker-compose up --build
-```
-
-Die Anwendung ist dann verfügbar unter:
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:8000
-- API Dokumentation: http://localhost:8000/docs
-
-### Lokale Entwicklung
-
-#### Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-#### Backend
+### 2. Backend Setup
 
 ```bash
 cd backend
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
+
+# Copy and configure environment variables
+cp .env.example .env
+# Edit .env with your credentials
+
+# Start backend
 uvicorn src.main:app --reload
 ```
 
-## Projektstruktur im Detail
+### 3. Frontend Setup
 
-### Domain Layer
-Der Kern der Anwendung. Enthält:
-- **Entities**: Geschäftsobjekte (Reel, Config)
-- **Enums**: Status, Styles, Voice Types
-- **Interfaces**: Abstrakte Definitionen für Repositories & Services
+```bash
+cd frontend
+npm install
 
-**Keine** Abhängigkeiten zu Frameworks oder externen Libraries.
+# Copy and configure environment variables
+cp .env.example .env.local
+# Edit .env.local with your settings
 
-### Application Layer
-Orchestriert die Geschäftslogik:
-- **Use Cases**: Implementieren konkrete Anwendungsfälle
-  - `CreateReelUseCase`: Neues Reel erstellen
-  - `GenerateReelUseCase`: Video generieren
-- **DTOs**: Datenübertragungsobjekte für API
-- **Services**: Anwendungs-spezifische Services
-
-### Infrastructure Layer
-Implementiert technische Details:
-- **Database**: SQLAlchemy Models & Repositories
-- **AI Services**: OpenAI Integration, Video Generation
-- **External**: AWS S3, Storage Services
-- **API Client**: Axios-basierte Repository-Implementierung
-
-### Presentation Layer
-User Interface & API:
-- **Frontend**: React Components, Next.js Pages
-- **Backend**: FastAPI Controllers, Middlewares
-
-## API Endpoints
-
-### Reels
-- `GET /api/reels` - Alle Reels abrufen
-- `GET /api/reels/{id}` - Einzelnes Reel abrufen
-- `POST /api/reels` - Neues Reel erstellen
-- `PATCH /api/reels/{id}` - Reel aktualisieren
-- `DELETE /api/reels/{id}` - Reel löschen
-- `POST /api/reels/{id}/generate` - Video generieren
-
-### Health
-- `GET /health` - Health Check
-
-Vollständige API-Dokumentation unter: http://localhost:8000/docs
-
-## Vorteile der Clean Architecture
-
-### 1. Testbarkeit
-Jede Schicht kann unabhängig getestet werden:
-```typescript
-// Use Case Test ohne externe Abhängigkeiten
-const mockRepo = new MockReelRepository();
-const useCase = new CreateReelUseCase(mockRepo);
+# Start frontend
+npm run dev
 ```
 
-### 2. Austauschbarkeit
-Technologien können leicht gewechselt werden:
-- PostgreSQL → MongoDB (nur Infrastructure Layer)
-- Axios → Fetch API (nur Infrastructure Layer)
-- OpenAI → andere AI Service (nur Infrastructure Layer)
+### 4. Database Setup
 
-### 3. Wartbarkeit
-Klare Trennung macht Code verständlicher und wartbarer.
-
-### 4. Business-Fokus
-Domain Layer bleibt frei von technischen Details.
-
-## Erweiterungen
-
-### Neue AI-Services hinzufügen
-
-1. Interface in Domain definieren (falls nicht vorhanden)
-2. Implementierung in Infrastructure erstellen
-3. In Use Case einbinden
-
-### Neue Features hinzufügen
-
-1. Entity/Interface in Domain erweitern
-2. Use Case in Application erstellen
-3. Repository/Service in Infrastructure implementieren
-4. Controller/Component in Presentation hinzufügen
-
-## Testing
-
-### Frontend Tests
 ```bash
+cd database/vercel-postgres
+psql "YOUR_DATABASE_URL" < schema.sql
+```
+
+**See [SETUP.md](SETUP.md) for detailed setup instructions.**
+
+## 💰 Pricing Plans
+
+| Plan | Price | Hooks/month | Scripts/month | Calendars/month | PDFs/month |
+|------|-------|-------------|---------------|-----------------|------------|
+| **FREE** | €0 | 5 | 3 | 1 | 2 |
+| **BASIC** | €19 | 50 | 30 | 5 | 20 |
+| **PRO** | €49 | 500 | 300 | 20 | 200 |
+| **ENTERPRISE** | €199 | ∞ | ∞ | ∞ | ∞ |
+
+## 🎯 Use Cases
+
+- **Content Creators**: Generate endless viral content ideas
+- **Social Media Managers**: Plan and schedule 30 days of content
+- **Marketing Agencies**: Create content for multiple clients
+- **Influencers**: Stay consistent with daily posting
+- **Small Businesses**: Professional content without hiring creators
+
+## 📸 Screenshots
+
+### Dashboard
+Clean overview with stats, quick actions, and recent content.
+
+### Generators
+7 specialized tools for different content types with instant AI generation.
+
+### Content History
+Search, filter, and export all your generated content.
+
+## 🔧 Development
+
+### Run Tests
+
+```bash
+# Backend
+cd backend
+pytest
+
+# Frontend
 cd frontend
 npm run test
 ```
 
-### Backend Tests
+### Build for Production
+
 ```bash
+# Backend
 cd backend
-pytest
+docker build -t ai-reels-backend .
+
+# Frontend
+cd frontend
+npm run build
 ```
 
-## Deployment
+## 🚢 Deployment
 
-### Docker Production Build
-```bash
-docker-compose -f docker-compose.prod.yml up --build
-```
+### Recommended Stack
 
-### Umgebungsvariablen
-Siehe `.env.example` für alle benötigten Variablen.
+- **Backend**: Railway or Render
+- **Frontend**: Vercel
+- **Database**: Vercel Postgres
+- **Blob Storage**: Vercel Blob (optional)
 
-## Lizenz
+See [SETUP.md](SETUP.md) for deployment instructions.
 
-MIT
+## 📝 API Documentation
 
-## Kontakt
+Once the backend is running, visit:
 
-Bei Fragen oder Problemen bitte ein Issue erstellen.
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Anthropic** for Claude 3.5 Sonnet API
+- **Stripe** for payment infrastructure
+- **Vercel** for hosting and database
+- **FastAPI** and **Next.js** communities
+
+## 📧 Support
+
+For support, email support@ai-reels-generator.com or open an issue.
+
+## 🌟 Star History
+
+If you find this project useful, please consider giving it a star! ⭐
+
+---
+
+Built with ❤️ using Claude Code

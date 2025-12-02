@@ -1,30 +1,46 @@
-# Environment variables
+# Environment Variables
 .env
 .env.local
 .env.*.local
+.env.production
+.env.development
 
-# Dependencies
-node_modules/
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+ENV/
+env/
+.venv
 
-# Production
-/frontend/build
-/frontend/.next
-/frontend/out
-/backend/dist
-
-# Logs
-*.log
-logs/
+# Node.js
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# OS
+.pnpm-debug.log*
+.next/
+out/
 .DS_Store
-Thumbs.db
+*.pem
 
 # IDEs
 .vscode/
@@ -33,13 +49,34 @@ Thumbs.db
 *.swo
 *~
 
-# Docker
-*.pid
-*.seed
-*.pid.lock
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+.hypothesis/
+
+# Logs
+*.log
+logs/
 
 # Database
 *.db
+*.sqlite
 *.sqlite3
-postgres_data/
-redis_data/
+
+# Vercel
+.vercel
+
+# Railway
+.railway
+
+# Secrets
+secrets/
+*.pem
+*.key
+*.cert
